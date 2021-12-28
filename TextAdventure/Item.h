@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+using std::string;
+using std::vector;
 class Item {
 private:
 	string name;
@@ -22,12 +24,12 @@ public:
 class Container :public Item
 {	
 private:
-	vector<Item*> contents;
+	vector <Item*> contents;
 	Item key_item;
 	bool opened;
 
 public:
-	bool opened()
+	bool open()
 	{
 
 	}

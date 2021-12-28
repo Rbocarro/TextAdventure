@@ -1,8 +1,11 @@
 #pragma once
 #include<string>
 #include<vector>
+#include"Item.h"
+#include"Location.h"
 using std::string;
 using std::vector;
+
 class Player{
 private:
 
