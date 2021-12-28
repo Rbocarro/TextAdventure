@@ -7,6 +7,35 @@ private:
 	string description;
 	vector<Item*> contents;
 public:
+
+	int GetNumber()
+	{
+		return number;
+	}
+	void SetNumber(int value)
+	{
+		number = value;
+	}
+
+	string GetName()
+	{
+		return name;
+	}
+
+	void SetName(string value)
+	{
+		name = value;
+	}
+
+	string GetDescription()
+	{
+		return description;
+	}
+
+	void SetDescription(string value)
+	{
+		description = value;
+	}
 	void print()
 	{
 		std::cout << description<<std::endl;
