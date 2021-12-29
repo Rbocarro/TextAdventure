@@ -1,6 +1,7 @@
 #pragma once
 #include<fstream>
 #include<algorithm>
+#include<map>
 #include"Location.h"
 using std::ifstream;
 using std::cout;
@@ -8,9 +9,14 @@ using std::endl;
 using std::getline;
 using std::string;
 using std::ios;
+using std::map;
 
 
-enum validVerbs  {look,take,drop,open,quit};
+enum validVerbs { look, take, drop, open, quit };
+
+
+
+
 string to_lower(string s)
 {
 	std::for_each(s.begin(), s.end(), [](char& c) {
@@ -29,7 +35,7 @@ public:
 	{	
 		string line;
 		Location l;
-		while (s)
+		while (getline(s, line))
 		{
 			getline(s, line,':');
 			int temp;
@@ -63,9 +69,17 @@ public:
 		cout << "Verb:" << verb<<"\n";
 		cout << "Noun:" << noun << "\n";
 		
-		switch (verb)
+		if (verb == "quit")
 		{
-
+			quit = true;
+		}
+		if (verb == "look")
+		{
+			cout << "looking around";
+		}
+		if (verb == "take")
+		{
+			cout << "take item";
 		}
 	}
 
