@@ -9,6 +9,8 @@ using std::getline;
 using std::string;
 using std::ios;
 
+
+enum validVerbs  {look,take,drop,open,quit};
 string to_lower(string s)
 {
 	std::for_each(s.begin(), s.end(), [](char& c) {
@@ -53,11 +55,18 @@ public:
 		string verb, noun;
 		int spacePos = input.find(" ");
 		verb = to_lower(input.substr(0, spacePos));
-		noun = to_lower(input.substr(spacePos + 1));
+		if (spacePos > -1)
+			noun = to_lower(input.substr(spacePos + 1));
+		else
+			noun.clear();
+		
 		cout << "Verb:" << verb<<"\n";
 		cout << "Noun:" << noun << "\n";
-		//if (verb == "quit")
-			///quit = true;
+		
+		switch (verb)
+		{
+
+		}
 	}
 
 };

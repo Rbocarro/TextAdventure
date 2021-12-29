@@ -8,3 +8,6 @@
 *.tlog
 *.log
 *.ipch
+.vs/TextAdventure/v17/.suo
+.vs/TextAdventure/v17/.suo
+*.db
