@@ -1,3 +1,6 @@
+Item:Red Book
+Description: A sturdy red leather book. It has seen better times.
+
 Location:1
 Name:Outside base
 Description:You are standing in front of a small building

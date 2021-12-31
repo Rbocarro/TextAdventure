@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-using std::string;
 using std::vector;
 class Item {
 private:
@@ -9,15 +8,28 @@ private:
 
 
 public:
-
+	Item(string name, string description)
+	{
+		this->SetName(name);
+		this->SetDescription(description);
+	}
+	void SetName(string value)
+	{
+		name = value;
+	}
 	string getName()
 	{
 		return name;
+	}
+	void SetDescription(string value)
+	{
+		description = value;
 	}
 	string getDescription()
 	{
 		return description;
 	}
+
 
 };
 

@@ -9,10 +9,9 @@ using std::vector;
 
 class Player{
 private:
-
 	static Location* location;
 	static vector<Item*> inventory;
-	static int steps;
+	static const int steps=7;
 public:
 	static bool hasItem(Item* item)
 	{
@@ -47,13 +46,11 @@ public:
 		//success / failure(e.g.because the item is not a container, its open method fails
 	}
 
-	static void setLocation(Location* l)
-	{
-		/*cout << "Location value:" <<l->GetNumber() << endl;
-		cout << "Name:" << l->GetName() << endl;
-		cout << "Description:" << l->GetDescription() << endl;*/
-		
+	static void setLocation(Location *l)
+	{	
+		cout << "Descriptionx:" << l->GetName() << endl;
 		location = l;
+		//cout << "Descriptionx:"<<location->GetName() << endl;
 	}
 	static void PrintStatus()
 	{

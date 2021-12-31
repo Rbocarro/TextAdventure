@@ -3,6 +3,7 @@
 #include<algorithm>
 #include<map>
 #include"Location.h"
+#include"Item.h"//testing only remove afterwards.
 using std::ifstream;
 using std::cout;
 using std::endl;
@@ -30,52 +31,56 @@ class GameManager
 private:
 	bool quit = false;
 	vector<Location*> locations;
+	vector<Item*> tempItems;//testing only remove afterwards.
 
 public:
 	void readData(ifstream& s)
 	{	
 		string line;
-		//while (getline(s, line, ':'))
+
+		//while (getline(s, line,':'))
 		//{	
-		//	int temp;
-		//	s >> temp;
-		//	locations.push_back(new Location(temp));
+		//	int tempint;
+		//	string tempnameSrt;
+		//	string tempDescSrt;
+		//	s >> tempint;
+		//	getline(s, tempnameSrt,':');
+		//	getline(s, tempnameSrt);
+		//	getline(s, tempDescSrt, ':');
+		//	getline(s, tempDescSrt);
+		//	locations.push_back(new Location(tempint,tempnameSrt,tempDescSrt));
 		//}
 
-		//for (; getline(s, line, ':'); )
-		//{
-		//		int tempint;
-		//		string tempnameSrt;
-		//		string tempDescSrt;
-		//		s >> tempint;
-		//		getline(s, tempnameSrt,'\n');
-		//		locations.push_back(new Location(tempint,tempnameSrt));
-		//		s.get();
-		//}
 		while (getline(s, line,':'))
-		{	
+		{
 			int tempint;
-			string tempnameSrt;
-			string tempDescSrt;
-			s >> tempint;
-			getline(s, tempnameSrt,':');
-			getline(s, tempnameSrt);
-			getline(s, tempDescSrt, ':');
-			getline(s, tempDescSrt);
-			locations.push_back(new Location(tempint,tempnameSrt,tempDescSrt));
+			string tempSrt;
+			if (line == "Item")
+			{
+				getline(s, line);
+				getline(s, tempSrt, ':');
+				getline(s, tempSrt);
+				tempItems.push_back(new Item(line, tempSrt));
+
+			}
+
+		}
+		cout << "Item Vector Size:" << tempItems.size();
+		for (int i = 0; i < tempItems.size(); i++)
+		{
+			cout << "Item name: " << tempItems[i]->getName() << endl;
+			cout << "Item name: " << tempItems[i]->getDescription() << endl
+				<< endl;
+
 		}
 
-
-
-
-		//s.read(line, 3);
 		//cout << "Locations vector size:" << locations.size() << endl<<endl;
 		//for (int i = 0; i<locations.size(); i++)
 		//{
 		//	cout << "Location value:" << locations[i]->GetNumber() << endl;
 		//	cout << "Location name:" << locations[i]->GetName() << endl;
 		//	cout << "Location Description:" << locations[i]->GetDescription() << endl;
-		//	cout << endl;
+		//	cout << "-------------------------------------------------------------------- "<<endl;
 		//}
 		
 
@@ -89,7 +94,7 @@ public:
 	void ExecuteCommand(string input)
 	{	
 		string verb, noun;
-		int spacePos = input.find(" ");
+		int spacePos = static_cast<int>(input.find(" "));//not sure why but i need to cast it as a int to avoid some conversion error
 		verb = to_lower(input.substr(0, spacePos));
 		if (spacePos > -1)
 			noun = to_lower(input.substr(spacePos + 1));
