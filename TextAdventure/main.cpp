@@ -13,15 +13,19 @@ using std::ifstream;
 using std::getline;
 int main()
 {   
-    string asa="love is the danger and i want to keep it alive";
     GameManager g;
     string filename = "data.txt";
 	ifstream s(filename);
 	if (s.is_open())
-		cout << "Reading from file " << filename << endl;
+		cout << "Reading from file " << filename << endl<<endl;
 	else
 		cout << "ERROR " << filename << endl;
 	g.readData(s);
+
+
+	// Place the player at location 1 and print their initial status
+	Player::setLocation(g.getOrCreateLocation(1));
+	//Player::PrintStatus();
 
 
 	string input;
@@ -30,5 +34,12 @@ int main()
 		getline(cin, input);
 		g.ExecuteCommand(input);
 	}
+
+
+	// End of game: Give a final message based on whether player quit or reached the goal
+	if (g.HasQuit())
+		cout << "Better luck next time!" << endl;
+	else
+		cout << "You made it!" << endl;
     return 0;
 }

@@ -1,5 +1,5 @@
 #pragma once
-
+#include<string>
 class Location {
 private:
 	int number;
@@ -7,6 +7,12 @@ private:
 	string description;
 	vector<Item*> contents;
 public:
+	Location(int n,string name="Undefined Name",string description= "Undefined Description")
+	{
+		number = n;
+		this->name = name;
+		this->description = description;
+	}
 
 	int GetNumber()
 	{

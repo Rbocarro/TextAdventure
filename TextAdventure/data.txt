@@ -1,5 +1,15 @@
 Location:1
+Name:Outside base
+Description:You are standing in front of a small building
 
-Location:23
+Location:2
+Name:Inside base
+Description:You are inside an office. the smell of stale coffee fills the air
 
-Location:245
+Location:3
+Name:Yakuza HQ
+Description:Half naked, muscular Japanese men surround you.
+
+Location:4
+Name:Graveyard
+Description:you are in an old abandonned graveyard.

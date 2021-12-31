@@ -29,25 +29,55 @@ class GameManager
 {
 private:
 	bool quit = false;
+	vector<Location*> locations;
 
 public:
 	void readData(ifstream& s)
 	{	
 		string line;
-		Location l;
-		while (getline(s, line))
-		{
-			getline(s, line,':');
-			int temp;
-			s >> temp;
-			s.get();
-			l.SetNumber(temp);
-			cout << temp;
+		//while (getline(s, line, ':'))
+		//{	
+		//	int temp;
+		//	s >> temp;
+		//	locations.push_back(new Location(temp));
+		//}
+
+		//for (; getline(s, line, ':'); )
+		//{
+		//		int tempint;
+		//		string tempnameSrt;
+		//		string tempDescSrt;
+		//		s >> tempint;
+		//		getline(s, tempnameSrt,'\n');
+		//		locations.push_back(new Location(tempint,tempnameSrt));
+		//		s.get();
+		//}
+		while (getline(s, line,':'))
+		{	
+			int tempint;
+			string tempnameSrt;
+			string tempDescSrt;
+			s >> tempint;
+			getline(s, tempnameSrt,':');
+			getline(s, tempnameSrt);
+			getline(s, tempDescSrt, ':');
+			getline(s, tempDescSrt);
+			locations.push_back(new Location(tempint,tempnameSrt,tempDescSrt));
 		}
 
+
+
+
 		//s.read(line, 3);
+		//cout << "Locations vector size:" << locations.size() << endl<<endl;
+		//for (int i = 0; i<locations.size(); i++)
+		//{
+		//	cout << "Location value:" << locations[i]->GetNumber() << endl;
+		//	cout << "Location name:" << locations[i]->GetName() << endl;
+		//	cout << "Location Description:" << locations[i]->GetDescription() << endl;
+		//	cout << endl;
+		//}
 		
-		cout <<"test loc num:" <<l.GetNumber()<<endl;
 
 	}
 
@@ -81,6 +111,17 @@ public:
 		{
 			cout << "take item";
 		}
+	}
+
+
+	// Returns the location with the given id, creating it if necessary.
+	Location* getOrCreateLocation(int id) 
+	{
+		if (locations[id] == nullptr)
+		{
+			cout << "Cannot Initialise location" << endl;
+		}
+		return locations[id-1];
 	}
 
 };
