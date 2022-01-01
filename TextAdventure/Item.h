@@ -1,5 +1,6 @@
 #pragma once
-#include <string>
+#include<string>
+using std::string;
 using std::vector;
 class Item {
 private:
@@ -8,7 +9,7 @@ private:
 
 
 public:
-	Item(string name, string description)
+	Item(string name="Undefined name", string description="Undefined name")
 	{
 		this->SetName(name);
 		this->SetDescription(description);

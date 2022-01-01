@@ -1,18 +1,26 @@
 Item:Red Book
 Description: A sturdy red leather book. It has seen better times.
 
-Location:1
-Name:Outside base
-Description:You are standing in front of a small building
+Item:ThreeDS
+Description: A 3DS made by nintendo. You should proabably homebrew it!
 
-Location:2
-Name:Inside base
-Description:You are inside an office. the smell of stale coffee fills the air
+Item:Ancient Katana
+Description: An Ancient Katana forged from a rock that fell from the stars.
+
+Item:Golden Bug
+Description: a bug made of gold.
 
 Location:3
-Name:Yakuza HQ
-Description:Half naked, muscular Japanese men surround you.
+Name:Outside Building
+Description:you are outside building
+Contents:Red Book,ThreeDS
 
-Location:4
-Name:Graveyard
-Description:you are in an old abandonned graveyard.
+Location:7
+Name:Inside Building
+Description:you are inside of the buidling
+Contents:Ancient Katana
+
+Location:13
+Name:London
+Description:Capital of the UK
+Contents:

@@ -37,51 +37,103 @@ public:
 	void readData(ifstream& s)
 	{	
 		string line;
-
 		//while (getline(s, line,':'))
-		//{	
+		//{
+		//	string tempSrt;
 		//	int tempint;
 		//	string tempnameSrt;
 		//	string tempDescSrt;
-		//	s >> tempint;
-		//	getline(s, tempnameSrt,':');
-		//	getline(s, tempnameSrt);
-		//	getline(s, tempDescSrt, ':');
-		//	getline(s, tempDescSrt);
-		//	locations.push_back(new Location(tempint,tempnameSrt,tempDescSrt));
-		//}
+		//	if (line == "Item")
+		//	{
+		//		getline(s, line);
+		//		getline(s, tempSrt, ':');
+		//		getline(s, tempSrt);
+		//		tempItems.push_back(new Item(line, tempSrt));
+		//	}
+		//	getline(s, tempSrt);
+		//	if (line == "Location")
+		//	{
+		//		tempint = atol(tempSrt.c_str());
+		//		getline(s, tempnameSrt,':');
+		//		getline(s, tempnameSrt);
+		//		getline(s, tempDescSrt, ':');
+		//		getline(s, tempDescSrt);
+		//		getline(s, tempSrt);
+		//		locations.push_back(new Location(tempint,tempnameSrt,tempDescSrt));
+		//	}
 
-		while (getline(s, line,':'))
+		while (getline(s, line, ':'))
 		{
-			int tempint;
 			string tempSrt;
+			int tempint;
+			string tempnameStr;
+			string tempDescStr;
+			string tempItemStr;
+			vector<Item*> locationItems;
+			vector<string> itemNameString;
 			if (line == "Item")
 			{
 				getline(s, line);
 				getline(s, tempSrt, ':');
 				getline(s, tempSrt);
 				tempItems.push_back(new Item(line, tempSrt));
-
 			}
-
+			getline(s, tempSrt);
+			if (line == "Location")
+			{
+				tempint = atol(tempSrt.c_str());
+				getline(s, tempnameStr, ':');
+				getline(s, tempnameStr);
+				getline(s, tempDescStr, ':');
+				getline(s, tempDescStr);
+				getline(s, tempItemStr, ':');
+				getline(s, tempItemStr);
+				string tempItemSubStr = "";
+				for (int i = 0; i < tempItemStr.length(); i++)
+				{
+					if (tempItemStr[i] == ',') {
+						itemNameString.push_back(tempItemSubStr);
+						tempItemSubStr = "";
+					}
+					else {
+						tempItemSubStr.push_back(tempItemStr[i]);
+					}
+					
+				}
+				itemNameString.push_back(tempItemSubStr);
+				for (int i = 0; i < itemNameString.size(); i++)
+				{
+					for (int j = 0; j < tempItems.size(); j++)
+					{
+						if (itemNameString[i] == tempItems[j]->getName())
+						{
+							locationItems.push_back(tempItems[j]);
+						}
+					}
+				}
+				cout << endl;
+				getline(s, tempSrt);
+				locations.push_back(new Location(tempint, locationItems, tempnameStr, tempDescStr));
+			}
+			
 		}
-		cout << "Item Vector Size:" << tempItems.size();
+		cout << "Item Vector Size:" << tempItems.size()<<endl;
+		cout << "Locations vector size:" << locations.size() << endl << endl;
 		for (int i = 0; i < tempItems.size(); i++)
 		{
 			cout << "Item name: " << tempItems[i]->getName() << endl;
-			cout << "Item name: " << tempItems[i]->getDescription() << endl
+			cout << "Item Description: " << tempItems[i]->getDescription() << endl
 				<< endl;
 
 		}
-
-		//cout << "Locations vector size:" << locations.size() << endl<<endl;
-		//for (int i = 0; i<locations.size(); i++)
-		//{
-		//	cout << "Location value:" << locations[i]->GetNumber() << endl;
-		//	cout << "Location name:" << locations[i]->GetName() << endl;
-		//	cout << "Location Description:" << locations[i]->GetDescription() << endl;
-		//	cout << "-------------------------------------------------------------------- "<<endl;
-		//}
+		for (int i = 0; i<locations.size(); i++)
+		{
+			cout << "Location value:" << locations[i]->GetNumber() << endl;
+			cout << "Location name:" << locations[i]->GetName() << endl;
+			cout << "Location Description:" << locations[i]->GetDescription() << endl;
+			cout << "Location Contains Items:" << locations[i]->ListAllItems() << endl;
+			cout << "-------------------------------------------------------------------- "<<endl;
+		}
 		
 
 	}
@@ -110,11 +162,11 @@ public:
 		}
 		if (verb == "look")
 		{
-			cout << "looking around";
+			cout << "looking around\n";
 		}
 		if (verb == "take")
 		{
-			cout << "take item";
+			cout << "took : "<< noun<<endl;
 		}
 	}
 
