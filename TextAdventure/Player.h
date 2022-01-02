@@ -101,14 +101,21 @@ public:
 		inventory.push_back(item);
 	}
 
+	void SetAddItemVectortoInventory(vector<Item*> items)
+	{
+		inventory.insert(inventory.end(), items.begin(), items.end());
+	}
 	Location* GetLocation()
 	{
 		return location;
 	}
 	void TestFillInventory()
 	{
-		inventory.push_back(new Item("Tab s7"));
-		inventory.push_back(new Item("Note 9"));
-		inventory.push_back(new Item("Slim Wallet"));
+		inventory.push_back(new Item("Sword"));
+		inventory.push_back(new Item("Blunt"));
+		inventory.push_back(new Item("Purse"));
+		inventory.push_back(new Container("gold box", "A golden box",
+										std::vector<Item*>{new Item("Rat box")}));
+
 	}
 };

@@ -31,6 +31,17 @@ public:
 		return description;
 	}
 
+	virtual bool open()
+	{
+		return true;
+	}
+
+	virtual vector<Item*> GetContents()
+	{
+		return vector<Item*>{};
+	}
+
+	virtual void SetContentsToEmpty(){}
 
 };
 
@@ -42,9 +53,25 @@ private:
 	bool opened;
 
 public:
+	Container(string name,string description, vector <Item*> contents):Item(name,description)
+	{	
+		opened = false;
+		this->contents = contents;
+	}
 	bool open()
 	{
+		return opened;
+	}
 
+	vector<Item*> GetContents()
+	{
+		return contents;
+	}
+
+	void SetContentsToEmpty()
+	{
+		contents.clear();
+		opened = true;
 	}
 };
 

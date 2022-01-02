@@ -2,7 +2,7 @@ Item:Red Book
 Description: A sturdy red leather book. It has seen better times.
 
 Item:ThreeDS
-Description: A 3DS made by nintendo. You should proabably homebrew it!
+Description: A 3DS made by nintendo.
 
 Item:Ancient Katana
 Description: An Ancient Katana forged from a rock that fell from the stars.

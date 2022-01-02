@@ -164,6 +164,22 @@ public:
 				}
 			}
 		}
+
+		if (verb=="open")
+		{
+			for (int i = 0; i < player.GetInventory().size(); i++)
+			{
+				if (to_lower(player.GetInventory()[i]->getName()) == noun&&
+					player.GetInventory()[i]->open()==false)
+				{	
+
+					player.SetAddItemVectortoInventory(player.GetInventory()[i]->GetContents());
+					player.GetInventory()[i]->SetContentsToEmpty();
+					cout << "opend " << noun;
+					break;
+				}
+			}
+		}
 	}
 
 	// Returns the location with the given id, creating it if necessary.
