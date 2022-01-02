@@ -3,17 +3,20 @@
 #include<vector>
 #include"Item.h"
 #include"Location.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 using std::string;
 using std::vector;
+using std::cout;
+using std::endl;
 
 class Player{
 private:
-	static Location* location;
-	static vector<Item*> inventory;
-	static const int steps=7;
+	Location* location;
+	vector<Item*> inventory;
+
+	int steps;
 public:
-	static bool hasItem(Item* item)
+	bool hasItem(Item* item)
 	{
 		//go through players inventory to find item
 		for (int i = 0; i < inventory.size(); i++)
@@ -27,39 +30,85 @@ public:
 
 	}
 
-	static bool takeItem(Item* item)
+	bool takeItem(Item* item)
 	{
 		// to add an item to the inventory; returns true/false to
 		//indicate success / failure(because the item may not be here)
 		// inventory.push_back(item);?? 
 	}
 
-	static bool dropItem(Item* i)
+	bool dropItem(Item* i)
 	{
 		//to drop an item at the current location; returns
 		//true / false to indicate success / failure(because you may not have the item)
 	}
 
-	static bool openItem(Item* i)
+	bool openItem(Item* i)
 	{
 		//to open an item; returns true / false to indicate
 		//success / failure(e.g.because the item is not a container, its open method fails
 	}
 
-	static void setLocation(Location *l)
+	void setLocation(Location *l)
 	{	
-		cout << "Descriptionx:" << l->GetName() << endl;
+		//cout << "Descriptionx:" << l->GetName() << endl;
 		location = l;
 		//cout << "Descriptionx:"<<location->GetName() << endl;
 	}
-	static void PrintStatus()
+
+	void SetRemoveItemAtInventoryIndex(int value)
+	{
+		inventory.erase(inventory.begin() + value);
+	}
+
+	void PrintStatus()
 	{
 		/*to display the current location, inventory, and number of steps*/
-		
-		cout << "Location value:" << location->GetNumber()<<endl;
-		cout << "Name:" << location->GetName() << endl;
-		cout << "Description:" << location->GetDescription() << endl;
+		cout << "Location value: " << location->GetNumber()<<endl;
+		cout << "Location Name: " << location->GetName() << endl;
+		cout << "Location Description: " << location->GetDescription() << endl;
+		cout << "Location Contents Size: " << location->GetContents().size() << endl;
+		cout << "Location Description: " << location->ListAllItems() << endl;
+		cout << "Player Inventory Size: " << this->inventory.size() << endl;
+		cout << "Player Inventory: " << this->PrintAllItems() << endl;
 		
 
+	}
+
+	string PrintAllItems()
+	{
+		string output="Nothing in ya pockets";
+		for (int i = 0; i < inventory.size(); i++)
+		{	
+			if (i == 0)
+			{
+				output = "";
+			}
+			output.append(inventory[i]->getName());
+			output.append(", ");
+		}
+		return output;
+		
+	}
+
+	vector<Item*> GetInventory()
+	{
+		return inventory;
+	}
+
+	void SetAddItemtoInventory(Item *item)
+	{
+		inventory.push_back(item);
+	}
+
+	Location* GetLocation()
+	{
+		return location;
+	}
+	void TestFillInventory()
+	{
+		inventory.push_back(new Item("Tab s7"));
+		inventory.push_back(new Item("Note 9"));
+		inventory.push_back(new Item("Slim Wallet"));
 	}
 };

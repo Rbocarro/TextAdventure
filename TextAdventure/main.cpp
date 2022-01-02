@@ -13,7 +13,8 @@ using std::ifstream;
 using std::getline;
 int main()
 {   
-    GameManager g;
+	GameManager g;
+	
     string filename = "data.txt";
 	ifstream s(filename);
 	if (s.is_open())
@@ -23,9 +24,8 @@ int main()
 		cout << "ERROR " << filename << endl;
 	g.readData(s);
 	
-	// Place the player at location 1 and print their initial status
-	//Player::setLocation(g.getOrCreateLocation(1));
-	//Player::PrintStatus();
+	g.InitialisePlayerWithLocation(1);
+
 
 
 	string input;

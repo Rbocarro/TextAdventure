@@ -9,7 +9,7 @@ private:
 
 
 public:
-	Item(string name="Undefined name", string description="Undefined name")
+	Item(string name="Undefined name", string description="Undefined Description")
 	{
 		this->SetName(name);
 		this->SetDescription(description);
