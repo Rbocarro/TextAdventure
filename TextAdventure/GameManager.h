@@ -34,8 +34,72 @@ public:
 	void readData(ifstream& s)
 	{	
 		string line;
+//		while (getline(s, line, ':'))
+//		{
+//#pragma region Variables
+//			string tempSrt;
+//			int tempint;
+//			string tempnameStr;
+//			string tempDescStr;
+//			string tempItemStr;
+//			vector<Item*> locationItems;
+//			vector<string> itemNameString;
+//			string locationDirectionDEBUG;
+//			vector<string> locationDirectionVector;
+//#pragma endregion
+//
+//
+//			if (line == "Item")
+//			{
+//				getline(s, line);
+//				getline(s, tempSrt, ':');
+//				getline(s, tempSrt);
+//				tempItems.push_back(new Item(line, tempSrt));
+//			}
+//			getline(s, tempSrt);
+//			if (line == "Location")
+//			{
+//				tempint = atol(tempSrt.c_str());
+//				getline(s, tempnameStr, ':');
+//				getline(s, tempnameStr);
+//				getline(s, tempDescStr, ':');
+//				getline(s, tempDescStr);
+//				getline(s, tempItemStr, ':');
+//				getline(s, tempItemStr);
+//				string tempItemSubStr = "";
+//				for (int i = 0; i < tempItemStr.length(); i++)
+//				{
+//					if (tempItemStr[i] == ',') {
+//						itemNameString.push_back(tempItemSubStr);
+//						tempItemSubStr = "";
+//					}
+//					else {
+//						tempItemSubStr.push_back(tempItemStr[i]);
+//					}
+//					
+//				}
+//				itemNameString.push_back(tempItemSubStr);
+//				for (int i = 0; i < itemNameString.size(); i++)
+//				{
+//					for (int j = 0; j < tempItems.size(); j++)
+//					{
+//						if (itemNameString[i] == tempItems[j]->getName())
+//						{
+//							locationItems.push_back(tempItems[j]);
+//						}
+//					}
+//				}
+//				cout << endl;
+//				getline(s, tempSrt);
+//				locations.push_back(new Location(tempint, locationItems, tempnameStr, tempDescStr));
+//			}
+//			
+//		}
+
+
 		while (getline(s, line, ':'))
 		{
+#pragma region Variables
 			string tempSrt;
 			int tempint;
 			string tempnameStr;
@@ -43,6 +107,11 @@ public:
 			string tempItemStr;
 			vector<Item*> locationItems;
 			vector<string> itemNameString;
+			string locationDirectionDEBUG;
+			vector<string> locationDirectionVector;
+#pragma endregion
+
+
 			if (line == "Item")
 			{
 				getline(s, line);
@@ -60,6 +129,30 @@ public:
 				getline(s, tempDescStr);
 				getline(s, tempItemStr, ':');
 				getline(s, tempItemStr);
+				getline(s, locationDirectionDEBUG);
+				getline(s, tempSrt);//NUll termination waht????
+
+				for (int i=0;i<3; i++)
+				{	
+					
+					//cout << "Dir" << locationDirectionDEBUG << endl;
+					locationDirectionVector.push_back(locationDirectionDEBUG);
+					
+					
+					if (i < 2)//number of lines - 1
+					{	
+						
+						getline(s, locationDirectionDEBUG);
+					}
+					
+				}
+				
+				cout << "Debugldlr lnght:" << locationDirectionVector.size() << endl;
+				cout << "Debugldlr vect conatins:";
+				for (int i = 0; i < locationDirectionVector.size(); i++)
+				{
+					cout << locationDirectionVector[i] << ",";
+				}cout << endl;
 				string tempItemSubStr = "";
 				for (int i = 0; i < tempItemStr.length(); i++)
 				{
@@ -70,7 +163,7 @@ public:
 					else {
 						tempItemSubStr.push_back(tempItemStr[i]);
 					}
-					
+
 				}
 				itemNameString.push_back(tempItemSubStr);
 				for (int i = 0; i < itemNameString.size(); i++)
@@ -83,15 +176,11 @@ public:
 						}
 					}
 				}
-				cout << endl;
 				getline(s, tempSrt);
 				locations.push_back(new Location(tempint, locationItems, tempnameStr, tempDescStr));
 			}
-			
+
 		}
-
-
-		
 
 
 		cout << "Item Vector Size:" << tempItems.size()<<endl;
@@ -179,8 +268,12 @@ public:
 				{	
 					player.SetAddItemVectortoInventory(player.GetInventory()[i]->GetContents());
 					player.GetInventory()[i]->SetContentsToEmpty();
-					cout << "opened " << noun<<endl;
+					cout << "opened " << noun<<" and recived a "<<player.GetInventory()[i+1]->getName() << endl;
 					break;
+				}
+				else if (i == player.GetInventory().size() - 1)
+				{
+					cout << "Cannot open " << noun << endl;
 				}
 			}
 		}

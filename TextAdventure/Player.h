@@ -62,7 +62,7 @@ public:
 	void PrintStatus()
 	{
 		/*to display the current location, inventory, and number of steps*/
-		system("CLS");
+		//system("CLS");
 		location->print(); cout << endl;
 		cout << "Player Inventory Size: " << this->inventory.size() << endl;
 		cout << "Player Inventory: " << this->PrintAllItems() << endl;

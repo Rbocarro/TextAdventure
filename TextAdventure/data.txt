@@ -14,13 +14,22 @@ Location:1
 Name:Outside Building
 Description:you are outside building
 Contents:Red Book,ThreeDS,Wodden Box
+NORTH 1
+SOUTH 2
+SSude 3
 
 Location:2
 Name:Inside Building
 Description:you are inside of the buidling
 Contents:
+SOUTH 7
+sk 4
+SK 78
 
 Location:3
 Name:London
 Description:Capital of the UK
 Contents:
+WEST 8
+sd 89
+SK 102
