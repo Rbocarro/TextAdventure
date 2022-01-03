@@ -89,6 +89,11 @@ public:
 			}
 			
 		}
+
+
+		
+
+
 		cout << "Item Vector Size:" << tempItems.size()<<endl;
 		cout << "Locations vector size:" << locations.size() << endl << endl;
 		for (int i = 0; i < tempItems.size(); i++)
@@ -125,8 +130,8 @@ public:
 		else
 			noun.clear();
 		
-		cout << "Verb:" << verb<<"\n";
-		cout << "Noun:" << noun << "\n";
+		//cout << "Verb:" << verb<<"\n";
+		//cout << "Noun:" << noun << "\n";
 		
 		if (verb == "quit")
 		{
@@ -142,7 +147,7 @@ public:
 			{
 				if (to_lower(player.GetLocation()->GetContents()[i]->getName()) == noun)
 				{
-					player.SetAddItemtoInventory(player.GetLocation()->GetContents()[i]);
+					player.TakeItem(player.GetLocation()->GetContents()[i]);
 					player.GetLocation()->SetremoveItemAtInventoryIndex(i);
 				}
 			}
@@ -153,7 +158,7 @@ public:
 			{
 				if (to_lower(player.GetInventory()[i]->getName()) == noun)
 				{	
-					player.GetLocation()->SetAddSpecificItemToContents(player.GetInventory()[i]);
+					player.GetLocation()->drop_item(player.GetInventory()[i]);
 					cout << "Dropped " << noun << " at " << player.GetLocation()->GetName() << endl;
 					player.SetRemoveItemAtInventoryIndex(i);
 					break;
@@ -172,13 +177,21 @@ public:
 				if (to_lower(player.GetInventory()[i]->getName()) == noun&&
 					player.GetInventory()[i]->open()==false)
 				{	
-
 					player.SetAddItemVectortoInventory(player.GetInventory()[i]->GetContents());
 					player.GetInventory()[i]->SetContentsToEmpty();
-					cout << "opend " << noun;
+					cout << "opened " << noun<<endl;
 					break;
 				}
 			}
+		}
+
+		if (verb == "northy")//debug
+		{
+			player.setLocation( getOrCreateLocation(2));
+		}
+		if (verb == "southy")//debug
+		{
+			player.setLocation(getOrCreateLocation(1));
 		}
 	}
 

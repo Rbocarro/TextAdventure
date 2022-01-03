@@ -3,7 +3,6 @@
 #include<vector>
 #include"Item.h"
 #include"Location.h"
-//#include "GameManager.h"
 using std::string;
 using std::vector;
 using std::cout;
@@ -14,7 +13,8 @@ private:
 	Location* location;
 	vector<Item*> inventory;
 
-	int steps;
+	int steps=0;
+
 public:
 	bool hasItem(Item* item)
 	{
@@ -30,11 +30,9 @@ public:
 
 	}
 
-	bool takeItem(Item* item)
+	void TakeItem(Item* item)
 	{
-		// to add an item to the inventory; returns true/false to
-		//indicate success / failure(because the item may not be here)
-		// inventory.push_back(item);?? 
+		inventory.push_back(item);
 	}
 
 	bool dropItem(Item* i)
@@ -64,11 +62,8 @@ public:
 	void PrintStatus()
 	{
 		/*to display the current location, inventory, and number of steps*/
-		cout << "Location value: " << location->GetNumber()<<endl;
-		cout << "Location Name: " << location->GetName() << endl;
-		cout << "Location Description: " << location->GetDescription() << endl;
-		cout << "Location Contents Size: " << location->GetContents().size() << endl;
-		cout << "Location Description: " << location->ListAllItems() << endl;
+		system("CLS");
+		location->print(); cout << endl;
 		cout << "Player Inventory Size: " << this->inventory.size() << endl;
 		cout << "Player Inventory: " << this->PrintAllItems() << endl;
 		
@@ -96,10 +91,6 @@ public:
 		return inventory;
 	}
 
-	void SetAddItemtoInventory(Item *item)
-	{
-		inventory.push_back(item);
-	}
 
 	void SetAddItemVectortoInventory(vector<Item*> items)
 	{
@@ -116,6 +107,10 @@ public:
 		inventory.push_back(new Item("Purse"));
 		inventory.push_back(new Container("gold box", "A golden box",
 										std::vector<Item*>{new Item("Rat box")}));
+		string baby = "North";
+		string asda = "South";
+		location->addConnection(baby, new Location(69, std::vector<Item*>{new Item("Beat box")}, "Wales", "asd"));//DEBUG
+		location->addConnection(asda, new Location(420, std::vector<Item*>{new Item("Discount box")}, "ASDA supermarket", "asda"));//debug
 
 	}
 };

@@ -2,6 +2,9 @@
 #include<string>
 #include<map>
 using std::string;
+using std::map;
+using std::cout;
+using std::endl;
 class Location {
 private:
 	int number;
@@ -9,9 +12,9 @@ private:
 	string description;
 	vector<Item*> contents;
 
-	// For each possible direction, the location reached and item required (if any). Required.
-	//map<string, Location*> connections;
-	//map<string, Item*> key_items;
+	//For each possible direction, the location reached and item required (if any). Required.
+	map<string, Location*> connections;
+	map<string, Item*> key_items;
 public:
 	Location(int n, vector<Item*> itemList, string name = "Undefined Name", string description = "Undefined Description" )
 	{
@@ -64,7 +67,7 @@ public:
 	{
 		contents = inputcontents;
 	}
-	void SetAddSpecificItemToContents(Item* item)
+	void drop_item(Item* item)
 	{
 		contents.push_back(item);
 	}
@@ -75,7 +78,13 @@ public:
 	}
 	void print()
 	{
-		std::cout << description<<std::endl;
+		cout << "Location Name: " << name<<endl;
+		cout << "Location Description:" << description << std::endl;
+		cout << "Location Contents Size DEBUG: " <<GetContents().size() << endl;
+		cout << "Location Items: " << ListAllItems() << endl;
+		cout << "Possible directions:" << ListAllPossibleDirections();
+
+
 
 	}
 
@@ -83,10 +92,7 @@ public:
 	{
 
 	}
-	void drop_item(Item* i)
-	{
 
-	}
 
 	Item* getKey(string& direction)
 	{
@@ -96,6 +102,21 @@ public:
 	Location* getConnection(string& direction)
 	{
 
+	}
+	void addConnection(string& direction, Location* destination)
+	{
+		connections.insert(std::pair<string, Location*>(direction,destination));
+	}
+
+	string ListAllPossibleDirections()
+	{
+		string output = "";
+		map<string, Location*>::iterator it;
+		for (it = connections.begin(); it != connections.end(); it++) {
+			output.append(it->first); output.append(",");
+		}
+
+		return output;
 	}
 
 	string ListAllItems()
@@ -113,4 +134,6 @@ public:
 	{
 		contents.push_back(item);
 	}
+
+
 };
