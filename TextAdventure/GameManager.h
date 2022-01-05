@@ -24,14 +24,17 @@ string to_lower(string s)
 class GameManager 
 {
 private:
-	bool quit = false;
-	vector<Location*> locations;
-	vector<Item*> tempItems;//testing only remove afterwards.
-	Player player;
+	bool quit = false;						//has the player quit the game. set to false at start
+	vector<Location*> locations;			//vector conatinting player locations
+	vector<Item*> Items;					//vector containing items read from parsed file which is then placed into locatiion
+	map<string, Location*> DirectionLocMap;	//map containg string with corresponding direction
+	Player player;							//the player object
+	vector<string> directionStrings;		//string vector to temprrarioly store direction strings, north south, etc
+	
 
 public:
 
-	void readData(ifstream& s)
+	void readData(ifstream& s)//read from parsed file data
 	{	
 		string line;
 //		while (getline(s, line, ':'))
@@ -107,17 +110,15 @@ public:
 			string tempItemStr;
 			vector<Item*> locationItems;
 			vector<string> itemNameString;
-			string locationDirectionDEBUG;
 			vector<string> locationDirectionVector;
+			string locationDirectionDEBUG;
 #pragma endregion
-
-
 			if (line == "Item")
 			{
 				getline(s, line);
 				getline(s, tempSrt, ':');
 				getline(s, tempSrt);
-				tempItems.push_back(new Item(line, tempSrt));
+				Items.push_back(new Item(line, tempSrt));
 			}
 			getline(s, tempSrt);
 			if (line == "Location")
@@ -130,29 +131,35 @@ public:
 				getline(s, tempItemStr, ':');
 				getline(s, tempItemStr);
 				getline(s, locationDirectionDEBUG);
-				getline(s, tempSrt);//NUll termination waht????
-
-				for (int i=0;i<3; i++)
+				for (int i=0;i<2; i++)
 				{	
-					
-					//cout << "Dir" << locationDirectionDEBUG << endl;
 					locationDirectionVector.push_back(locationDirectionDEBUG);
-					
-					
-					if (i < 2)//number of lines - 1
-					{	
-						
+					if (i < 1)//number of lines - 1
 						getline(s, locationDirectionDEBUG);
-					}
 					
 				}
 				
-				cout << "Debugldlr lnght:" << locationDirectionVector.size() << endl;
-				cout << "Debugldlr vect conatins:";
+			 // cout << "Debugldlr lnght:" << locationDirectionVector.size() << endl;
+				//cout << "Debugldlr vect conatins:";
+				//for (int i = 0; i < locationDirectionVector.size(); i++)
+				//{
+				//	cout << locationDirectionVector[i] << ",";
+				//}cout << endl;
+
+
 				for (int i = 0; i < locationDirectionVector.size(); i++)
 				{
-					cout << locationDirectionVector[i] << ",";
-				}cout << endl;
+					/*DirectionLocMap.insert(std::pair<string, Location*>(locationDirectionVector[i].substr(0, locationDirectionVector[i].find(" ")),
+						getOrCreateLocation(atoi(locationDirectionVector[i].substr(locationDirectionVector[i].find(" ")+1).c_str()
+						) - 1)));*/
+					/*directionStrings.push_back(locationDirectionVector[i].substr(0, locationDirectionVector[i].find(" ")));
+					DirectionLocMap.insert(std::pair<string, Location*>(locationDirectionVector[i].substr(0, locationDirectionVector[i].find(" ")),
+						getOrCreateLocation(1)));*/
+
+					cout << locationDirectionVector[i].substr(locationDirectionVector[i].find(" ") + 1) << endl;
+				}
+
+
 				string tempItemSubStr = "";
 				for (int i = 0; i < tempItemStr.length(); i++)
 				{
@@ -168,27 +175,34 @@ public:
 				itemNameString.push_back(tempItemSubStr);
 				for (int i = 0; i < itemNameString.size(); i++)
 				{
-					for (int j = 0; j < tempItems.size(); j++)
+					for (int j = 0; j < Items.size(); j++)
 					{
-						if (itemNameString[i] == tempItems[j]->getName())
+						if (itemNameString[i] == Items[j]->getName())
 						{
-							locationItems.push_back(tempItems[j]);
+							locationItems.push_back(Items[j]);
 						}
 					}
 				}
 				getline(s, tempSrt);
-				locations.push_back(new Location(tempint, locationItems, tempnameStr, tempDescStr));
-			}
+				locations.push_back(new Location(tempint, locationItems,DirectionLocMap, tempnameStr, tempDescStr));
+				DirectionLocMap.clear();
 
+				
+				
+			}
+			
+			
 		}
 
+		
 
-		cout << "Item Vector Size:" << tempItems.size()<<endl;
+
+		cout << "Item Vector Size:" << Items.size()<<endl;
 		cout << "Locations vector size:" << locations.size() << endl << endl;
-		for (int i = 0; i < tempItems.size(); i++)
+		for (int i = 0; i < Items.size(); i++)
 		{
-			cout << "Item name: " << tempItems[i]->getName() << endl;
-			cout << "Item Description: " << tempItems[i]->getDescription() << endl
+			cout << "Item name: " << Items[i]->getName() << endl;
+			cout << "Item Description: " << Items[i]->getDescription() << endl
 				<< endl;
 
 		}
@@ -204,23 +218,23 @@ public:
 
 	}
 
-	bool HasQuit()
+	bool HasQuit()							//return  quit status of player
 	{
 		return quit;
 	}
 
-	void ExecuteCommand(string input)
+	void ExecuteCommand(string input)	//takes in user input and breaks into noun and verb
 	{	
 		string verb, noun;
-		int spacePos = static_cast<int>(input.find(" "));//not sure why but i need to cast it as a int to avoid some conversion error
+		int spacePos = static_cast<int>(input.find(" "));//need to cast it as a int to avoid some conversion error
 		verb = to_lower(input.substr(0, spacePos));
 		if (spacePos > -1)
 			noun = to_lower(input.substr(spacePos + 1));
 		else
 			noun.clear();
 		
-		//cout << "Verb:" << verb<<"\n";
-		//cout << "Noun:" << noun << "\n";
+		cout << "Verb:" << verb<<"\n";
+		cout << "Noun:" << noun << "\n";
 		
 		if (verb == "quit")
 		{
@@ -238,6 +252,7 @@ public:
 				{
 					player.TakeItem(player.GetLocation()->GetContents()[i]);
 					player.GetLocation()->SetremoveItemAtInventoryIndex(i);
+					
 				}
 			}
 		}
@@ -280,32 +295,46 @@ public:
 
 		if (verb == "northy")//debug
 		{
-			player.setLocation( getOrCreateLocation(2));
+			player.setLocation( getOrCreateLocation(1));
 		}
 		if (verb == "southy")//debug
 		{
-			player.setLocation(getOrCreateLocation(1));
+			player.setLocation(getOrCreateLocation(0));
+		}
+
+		if (VerbDirectionisamongParsedDirection(verb))
+		{
+			cout << "verb exists among direction" << endl;
 		}
 	}
 
-	// Returns the location with the given id, creating it if necessary.
-	Location* getOrCreateLocation(int id) 
+	
+	Location* getOrCreateLocation(int id) //retruns parsed location
 	{
 		if (locations[id] == nullptr)
 		{
 			cout << "Cannot Initialise location" << endl;
 		}
-		return locations[id-1];
+		return locations[id];
 	}
 
-	void InitialisePlayerWithLocation(int value)
+	void InitialisePlayerWithLocation(int value)//intialise player
 	{	
-		//player = new Player();
 		player.setLocation(getOrCreateLocation(value));
-		player.TestFillInventory();//test fill the inventory .remove afterwards
+		player.TestFillInventory();//Fill player  inventory 
 		player.PrintStatus();
 	}
-
+	bool VerbDirectionisamongParsedDirection(string verb)//DEBUG
+	{
+		for (int i = 0;  i < directionStrings.size(); i++)
+		{
+			if (to_lower(directionStrings[i]) == verb)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 };
 
 

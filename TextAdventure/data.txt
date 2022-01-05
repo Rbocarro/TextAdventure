@@ -1,35 +1,35 @@
-Item:Red Book
-Description: A sturdy red leather book. It has seen better times.
+Item:Ruby
+Description: A glimmering ruby. probably worth a lot.
 
-Item:ThreeDS
-Description: A 3DS made by nintendo.
+Item:A Shield
+Description: A sheild made of cast iron.
 
-Item:Wodden Box
-Description: An Ancient woddenbox. you should try opening it!.
+Item:Wodden Stick
+Description: An Ancient wodden stick.
 
 Item:Golden Bug
-Description: a bug made of gold.
+Description: a bug figurine made of gold.
+
+Item:Diamond
+Description: a Brilliant Diamond
 
 Location:1
-Name:Outside Building
-Description:you are outside building
-Contents:Red Book,ThreeDS,Wodden Box
-NORTH 1
-SOUTH 2
-SSude 3
+Name:Outside Cave
+Description:you are outside a cave
+Contents:Ruby,Wodden Stick
+NORTH 2
+EAST 3
 
 Location:2
-Name:Inside Building
-Description:you are inside of the buidling
-Contents:
-SOUTH 7
-sk 4
-SK 78
+Name:Cave Entrance
+Description:you are inside of the cave near the Entrance
+Contents:Golden Bug
+SOUTH 1
+EAST 3
 
 Location:3
-Name:London
-Description:Capital of the UK
-Contents:
-WEST 8
-sd 89
-SK 102
+Name:Cave Passage
+Description:a passage that leads north
+Contents:Diamond
+WEST 1
+NORTH 2
