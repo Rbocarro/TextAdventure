@@ -65,6 +65,7 @@ public:
 		location->print(); cout << endl;
 		cout << "Steps Taken:" << steps << endl;
 		cout << "Player Inventory: " << this->PrintAllItems() << endl;
+		cout << "Use commands Take,drop,open or enter a direction only to move the character " << endl;
 		
 
 	}

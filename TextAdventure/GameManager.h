@@ -113,7 +113,7 @@ public:
 			vector<string> locationDirectionVector;
 			string locationDirectionDEBUG;
 #pragma endregion
-			if (line == "Item")
+			if (line == "Item")//check if next few lines are for items
 			{
 				getline(s, line);
 				getline(s, tempSrt, ':');
@@ -121,7 +121,7 @@ public:
 				Items.push_back(new Item(line, tempSrt));
 			}
 			getline(s, tempSrt);
-			if (line == "Location")
+			if (line == "Location")//check if next few lines are for locations
 			{
 				tempint = atol(tempSrt.c_str());
 				getline(s, tempnameStr, ':');
@@ -147,7 +147,7 @@ public:
 				//}cout << endl;
 
 
-				for (int i = 0; i < locationDirectionVector.size(); i++)
+				for (int i = 0; i < locationDirectionVector.size(); i++)		
 				{
 					/*DirectionLocMap.insert(std::pair<string, Location*>(locationDirectionVector[i].substr(0, locationDirectionVector[i].find(" ")),
 						getOrCreateLocation(atoi(locationDirectionVector[i].substr(locationDirectionVector[i].find(" ")+1).c_str()
@@ -156,7 +156,7 @@ public:
 					DirectionLocMap.insert(std::pair<string, Location*>(locationDirectionVector[i].substr(0, locationDirectionVector[i].find(" ")),
 						getOrCreateLocation(1)));*/
 
-					cout << locationDirectionVector[i].substr(locationDirectionVector[i].find(" ") + 1) << endl;
+					//cout << locationDirectionVector[i].substr(locationDirectionVector[i].find(" ") + 1) << endl;
 				}
 
 
@@ -193,13 +193,13 @@ public:
 			
 			
 		}
-
+		
 		
 
 
 		cout << "Item Vector Size:" << Items.size()<<endl;
 		cout << "Locations vector size:" << locations.size() << endl << endl;
-		for (int i = 0; i < Items.size(); i++)
+		/*for (int i = 0; i < Items.size(); i++)
 		{
 			cout << "Item name: " << Items[i]->getName() << endl;
 			cout << "Item Description: " << Items[i]->getDescription() << endl
@@ -213,7 +213,7 @@ public:
 			cout << "Location Description:" << locations[i]->GetDescription() << endl;
 			cout << "Location Contains Items:" << locations[i]->ListAllItems() << endl;
 			cout << "-------------------------------------------------------------------- "<<endl;
-		}
+		}*/
 		
 
 	}
@@ -233,8 +233,8 @@ public:
 		else
 			noun.clear();
 		
-		cout << "Verb:" << verb<<"\n";
-		cout << "Noun:" << noun << "\n";
+		//cout << "Verb:" << verb<<"\n";
+		//cout << "Noun:" << noun << "\n";
 		
 		if (verb == "quit")
 		{
@@ -293,11 +293,11 @@ public:
 			}
 		}
 
-		if (verb == "northy")//debug
+		if (verb == "north")//debug
 		{
 			player.setLocation( getOrCreateLocation(1));
 		}
-		if (verb == "southy")//debug
+		if (verb == "south")//debug
 		{
 			player.setLocation(getOrCreateLocation(0));
 		}
